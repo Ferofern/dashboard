@@ -1,44 +1,29 @@
-import { useState } from 'react';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select, { type SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import React from 'react';
 
-export default function SelectorUI() {
-  const [cityInput, setCityInput] = useState('');
+interface City {
+  name: string;
+  latitude: number;
+  longitude: number;
+}
 
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    setCityInput(event.target.value); 
-  };
+interface SelectorUIProps {
+  cities: City[];
+  selectedCity: string;
+  onCityChange: (cityName: string) => void;
+}
 
+export default function SelectorUI({ cities, selectedCity, onCityChange }: SelectorUIProps) {
   return (
-    <FormControl fullWidth>
-      <InputLabel id="city-select-label">Ciudad</InputLabel>
-      <Select
-        labelId="city-select-label"
-        id="city-simple-select"
-        label="Ciudad"
-        value={cityInput}
-        onChange={handleChange}
-      >
-        <MenuItem disabled value="">
-          <em>Seleccione una ciudad</em>
-        </MenuItem>
-        <MenuItem value="guayaquil">Guayaquil</MenuItem>
-        <MenuItem value="quito">Quito</MenuItem>
-        <MenuItem value="manta">Manta</MenuItem>
-        <MenuItem value="cuenca">Cuenca</MenuItem>
-      </Select>
-
-      {/* Muestra información si se ha seleccionado una ciudad */}
-      {cityInput && (
-        <p>
-          Información del clima en{' '}
-          <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
-            {cityInput}
-          </span>
-        </p>
-      )}
-    </FormControl>
+    <select
+      value={selectedCity}
+      onChange={(e) => onCityChange(e.target.value)}
+      style={{ width: '100%', padding: '8px', fontSize: '16px' }}
+    >
+      {cities.map((city) => (
+        <option key={city.name} value={city.name}>
+          {city.name}
+        </option>
+      ))}
+    </select>
   );
 }
