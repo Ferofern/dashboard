@@ -4,6 +4,8 @@ import AlertUI from './components/AlertUI';
 import SelectorUI from './components/SelectorUI';
 import IndicatorUI from './components/IndicatorUI';
 import DataFetcher from './functions/DataFetcher';
+import TableUI from './components/TableUI';
+import ChartUI from './components/ChartUI';
 
 function App() {
   const dataFetcherOutput = DataFetcher();
@@ -29,7 +31,6 @@ function App() {
       {/* Indicadores */}
       <Grid container size={{ xs: 12, md: 9 }}>
 
-        {/* Renderizado condicional según estado */}
         {dataFetcherOutput.loading && <p>Cargando datos...</p>}
 
         {dataFetcherOutput.error && <p>Error: {dataFetcherOutput.error}</p>}
@@ -81,16 +82,25 @@ function App() {
             </Grid>
           </>
         )}
+
       </Grid>
 
       {/* Gráfico */}
-      <Grid sx={{ display: { xs: 'none', md: 'block' } }}>
-        Elemento: Gráfico
+      <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
+        <ChartUI
+          loading={dataFetcherOutput.loading}
+          error={dataFetcherOutput.error}
+          hourlyData={dataFetcherOutput.data?.hourly}
+        />
       </Grid>
 
       {/* Tabla */}
-      <Grid sx={{ display: { xs: 'none', md: 'block' } }}>
-        Elemento: Tabla
+      <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
+        <TableUI
+          loading={dataFetcherOutput.loading}
+          error={dataFetcherOutput.error}
+          hourlyData={dataFetcherOutput.data?.hourly}
+        />
       </Grid>
 
     </Grid>
