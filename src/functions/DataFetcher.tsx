@@ -32,7 +32,7 @@ export default function DataFetcher({ latitude, longitude }: DataFetcherProps): 
 
         const result: OpenMeteoResponse = await response.json();
         setData(result);
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (err instanceof Error) {
           setError(err.message);
         } else {
