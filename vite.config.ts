@@ -8,7 +8,7 @@ import {VitePWA} from 'vite-plugin-pwa'
 export default defineConfig({
   base: "/dashboard/",
   plugins: [react(),
-  ...
+  
 
 VitePWA({
    registerType: 'autoUpdate',
